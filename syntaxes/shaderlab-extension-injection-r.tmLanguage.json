@@ -1,0 +1,147 @@
+{
+	"scopeName": "source.shaderlab.injection-r",
+	"injectionSelector": "R:meta.hlslblock -comment.line -string.quoted",
+	"patterns": [
+		{
+			"include": "#identifier"
+		},
+		{
+			"include": "#operator"
+		},
+		{
+			"include": "#semantics"
+		}
+	],
+	"repository": {
+		"identifier": {
+			"match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\b",
+			"name": "entity.name.variable.hlsl"
+		},
+		"operator": {
+			"patterns": [
+				{
+					"include": "#arithmetic-operator"
+				},
+				{
+					"include": "#increment-operator"
+				},
+				{
+					"include": "#decrement-operator"
+				},
+				{
+					"include": "#bitwise-operator"
+				},
+				{
+					"include": "#bitwise-shift-operator"
+				},
+				{
+					"include": "#assignment-operator"
+				},
+				{
+					"include": "#compound-assignment-operator"
+				},
+				{
+					"include": "#compound-bitwise-assignment-operator"
+				},
+				{
+					"include": "#conditional-operator"
+				},
+				{
+					"include": "#array-operator"
+				},
+				{
+					"include": "#boolean-operator"
+				},
+				{
+					"include": "#comparison-operator"
+				},
+				{
+					"include": "#unary-operator"
+				},
+				{
+					"include": "#structure-operator"
+				}
+			]
+		},
+		"arithmetic-operator": {
+			"match": "\\+|-|\\*|/|%",
+			"name": "keyword.operator.arithmetic.hlsl"
+		},
+		"increment-operator": {
+			"match": "\\+\\+",
+			"name": "keyword.operator.increment.hlsl"
+		},
+		"decrement-operator": {
+			"match": "--",
+			"name": "keyword.operator.decrement.hlsl"
+		},
+		"bitwise-operator": {
+			"match": "~|&|\\||\\^",
+			"name": "keyword.operator.bitwise.hlsl"
+		},
+		"bitwise-shift-operator": {
+			"match": "<<|>>",
+			"name": "keyword.operator.bitwise.shift.hlsl"
+		},
+		"assignment-operator": {
+			"match": "\\=",
+			"name": "keyword.operator.assignment.hlsl"
+		},
+		"compound-assignment-operator": {
+			"match": "\\+=|-=|\\*=|/=|%=",
+			"name": "keyword.operator.assignment.compound.hlsl"
+		},
+		"compound-bitwise-assignment-operator": {
+			"match": "<<=|>>=|&=|\\|=|\\^=",
+			"name": "keyword.operator.assignment.compound.bitwise.hlsl"
+		},
+		"conditional-operator": {
+			"begin": "\\?(?!\\s*[?.\\[]|\\s*$)",
+            "beginCaptures": {
+                "0": {
+                    "name": "keyword.operator.conditional.question-mark.hlsl"
+                }
+            },
+            "end": ":",
+            "endCaptures": {
+                "0": {
+                    "name": "keyword.operator.conditional.colon.hlsl"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "source.hlsl"
+                }
+            ]
+		},
+		"array-operator": {
+			"match": "\\[|\\]",
+			"name": "keyword.operator.array.hlsl"
+		},
+		"boolean-operator": {
+			"match": "&&|\\|\\|",
+			"name": "keyword.operator.boolean.hlsl"
+		},
+		"comparison-operator": {
+			"match": "==|!=|<|>|<=|>=",
+			"name": "keyword.operator.comparison.hlsl"
+		},
+		"unary-operator": {
+			"match": "!|\\+|-",
+			"name": "keyword.operator.unary.hlsl"
+		},
+		"structure-operator": {
+			"match": "\\.",
+			"name": "keyword.operator.structure.hlsl"
+		},
+		"semantics": {
+			"match": ":\\s*([a-zA-Z_]+[0-9]*)",
+			"name": "meta.semantics.hlsl",
+			"captures": {
+				"1": {
+					"name": "entity.name.semantics.hlsl"
+				}
+			}
+		}
+	}
+}

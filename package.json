@@ -1,0 +1,38 @@
+{
+  "name": "shaderlab-extension",
+  "displayName": "ShaderLab Ex",
+  "description": "",
+  "publisher": "Hajime Sanno",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.82.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "shaderlab",
+      "aliases": ["ShaderLab", "shaderlab"],
+      "extensions": [".shader"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [
+      {
+        "language": "shaderlab",
+        "scopeName": "source.shaderlab.extension",
+        "path": "./syntaxes/shaderlab-extension.tmLanguage.json"
+      },
+      {
+        "path": "./syntaxes/shaderlab-extension-injection-l.tmLanguage.json",
+        "scopeName": "source.shaderlab.injection-l",
+        "injectTo": ["source.shaderlab.extension"]
+      },
+      {
+        "path": "./syntaxes/shaderlab-extension-injection-r.tmLanguage.json",
+        "scopeName": "source.shaderlab.injection-r",
+        "injectTo": ["source.shaderlab.extension"]
+      }
+    ]
+  }
+}
