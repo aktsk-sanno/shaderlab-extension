@@ -1,5 +1,5 @@
 {
-	"scopeName": "source.shaderlab.injection-r",
+	"scopeName": "source.shaderlab.hlsl.injection-r",
 	"injectionSelector": "R:meta.hlslblock -comment.line -string.quoted",
 	"patterns": [
 		{

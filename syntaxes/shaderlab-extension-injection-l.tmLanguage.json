@@ -1,55 +1,265 @@
 {
 	"scopeName": "source.shaderlab.injection-l",
-	"injectionSelector": "L:meta.hlslblock -comment.line -string.quoted",
+	"injectionSelector": "L:source.shaderlab -comment.line -string.quoted",
 	"patterns": [
 		{
-			"include": "#cbuffer"
-		},
-		{
-			"include": "#separator"
-		},
-		{
-			"include": "#terminator"
-		},
-		{
-			"include": "#swizzle"
+			"include": "#properties"
 		}
 	],
 	"repository": {
-		"cbuffer": {
-			"begin": "(CBUFFER_START)\\(([a-zA-Z_][a-zA-Z0-9_]*)\\)",
+		"properties": {
+			"begin": "\\b([Pp]roperties)\\b",
 			"beginCaptures": {
 				"1": {
-					"name": "keyword.other.hlsl"
-				},
-				"2": {
-					"name": "struct.name.hlsl"
+					"name": "keyword.other.shaderlab"
 				}
 			},
-			"end": "CBUFFER_END",
-			"endCaptures": {
-				"0": {
-					"name": "keyword.other.hlsl"
-				}
-			},
-			"name": "meta.block.hlsl",
+			"end": "(?<=\\})",
+			"name": "meta.block.properties",
 			"patterns": [
 				{
-					"include": "source.hlsl"
+					"begin": "\\{",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.curlybracket.open.shaderlab"
+						}
+					},
+					"end": "\\}",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.curlybracket.close.shaderlab"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#properties-body"
+						}
+					]
 				}
 			]
 		},
+		"properties-body": {
+			"patterns": [
+				{
+					"include": "#attribute"
+				},
+				{
+					"include": "#property-body"
+				},
+				{
+					"include": "#identifier"
+				},
+				{
+					"include": "#number"
+				},
+				{
+					"include": "#vector"
+				},
+				{
+					"include": "#string"
+				},
+				{
+					"include": "#block"
+				},
+				{
+					"include": "#equal-sign"
+				},
+				{
+					"include": "#comment"
+				}
+			]
+		},
+		"attribute": {
+			"begin": "\\[",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.squarebracket.open.shaderlab"
+				}
+			},
+			"end": "\\]",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.squarebracket.close.shaderlab"
+				}
+			},
+			"name": "meta.attribute.shaderlab",
+			"patterns": [
+				{
+					"include": "#attributeName"
+				},
+				{
+					"begin": "\\(",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.parenthesis.open.shaderlab"
+						}
+					},
+					"end": "\\)",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.parenthesis.close.shaderlab"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#typeNameWithNamespace"
+						},
+						{
+							"include": "#identifier"
+						},
+						{
+							"include": "#number"
+						},
+						{
+							"include": "#separator"
+						}
+					],
+					"name": "meta.attribute.parameters.shaderlab"
+				}
+			]
+		},
+		"attributeName": {
+			"patterns": [
+				{
+					"include": "#typeNameWithNamespace"
+				},
+				{
+					"include": "#typeNameWithoutNamespace"
+				}
+			]
+		},
+		"property-body": {
+			"begin": "\\(",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.parenthesis.open.shaderlab"
+				}
+			},
+			"end": "\\)",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.parenthesis.close.shaderlab"
+				}
+			},
+			"patterns": [
+				{
+					"match": "(Range|Float|Int|Integer|Color|Vector|2D|3D|Cube|Any)",
+					"name": "entity.name.type.shaderlab"
+				},
+				{
+					"include": "#number"
+				},
+				{
+					"include": "#string"
+				},
+				{
+					"include": "#separator"
+				}
+			]
+		},
+		"typeNameWithNamespace": {
+			"match": "([a-zA-Z_][a-zA-Z0-9_]*)(\\.([a-zA-Z_][a-zA-Z0-9_]*))+",
+			"name": "entity.name.type.shaderlab"
+		},
+		"typeNameWithoutNamespace": {
+			"match": "([a-zA-Z_][a-zA-Z0-9_]*)",
+			"name": "entity.name.type.shaderlab"
+		},
+		"identifier": {
+			"match": "([a-zA-Z_][a-zA-Z0-9_]*)",
+			"name": "entity.name.variable.shaderlab"
+		},
+		"vector": {
+			"begin": "\\(",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.parenthesis.open.shaderlab"
+				}
+			},
+			"end": "\\)",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.parenthesis.close.shaderlab"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#separator"
+				},
+				{
+					"include": "#number"
+				}
+			],
+			"name": "meta.vector.shaderlab"
+		},
+		"number": {
+			"match": "\\b(\\d+(\\.\\d+)?[fFhH]?)",
+			"name": "constant.numeric.shaderlab"
+		},
+		"string": {
+			"begin": "\"",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.shaderlab"
+				}
+			},
+			"end": "\"",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.shaderlab"
+				}
+			},
+			"name": "string.quoted.double.shaderlab"
+		},
+		"equal-sign": {
+			"match": "=",
+			"name": "keyword.operator.assignment.shaderlab"
+		},
 		"separator": {
 			"match": ",",
-			"name": "punctuation.separator.hlsl"
+			"name": "punctuation.separator.shaderlab"
 		},
-		"terminator": {
-			"match": ";",
-			"name": "punctuation.terminator.hlsl"
+		"block": {
+			"begin": "\\{",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.curlybracket.open.shaderlab"
+				}
+			},
+			"end": "\\}",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.curlybracket.close.shaderlab"
+				}
+			}
 		},
-		"swizzle" : {
-			"match": "\\.[xyzw]{1,4}",
-			"name": "entity.swizzle.hlsl"
+		"comment": {
+			"patterns": [
+				{
+					"include": "#commentLine"
+				},
+				{
+					"include": "#commentBlock"
+				}
+			]
+		},
+		"commentLine": {
+			"match": "//.*$",
+			"name": "comment.line.double-slash.shaderlab"
+		},
+		"commentBlock": {
+			"begin": "/\\*",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.comment.shaderlab"
+				}
+			},
+			"end": "\\*/",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.comment.shaderlab"
+				}
+			}
 		}
 	}
 }

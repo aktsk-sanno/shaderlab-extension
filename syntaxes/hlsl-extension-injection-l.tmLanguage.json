@@ -1,0 +1,55 @@
+{
+	"scopeName": "source.shaderlab.hlsl.injection-l",
+	"injectionSelector": "L:meta.hlslblock -comment.line -string.quoted",
+	"patterns": [
+		{
+			"include": "#cbuffer"
+		},
+		{
+			"include": "#separator"
+		},
+		{
+			"include": "#terminator"
+		},
+		{
+			"include": "#swizzle"
+		}
+	],
+	"repository": {
+		"cbuffer": {
+			"begin": "(CBUFFER_START)\\(([a-zA-Z_][a-zA-Z0-9_]*)\\)",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.other.hlsl"
+				},
+				"2": {
+					"name": "struct.name.hlsl"
+				}
+			},
+			"end": "CBUFFER_END",
+			"endCaptures": {
+				"0": {
+					"name": "keyword.other.hlsl"
+				}
+			},
+			"name": "meta.block.hlsl",
+			"patterns": [
+				{
+					"include": "source.hlsl"
+				}
+			]
+		},
+		"separator": {
+			"match": ",",
+			"name": "punctuation.separator.hlsl"
+		},
+		"terminator": {
+			"match": ";",
+			"name": "punctuation.terminator.hlsl"
+		},
+		"swizzle" : {
+			"match": "\\.([xyzw]{1,4}|[rgba]{1,4})",
+			"name": "entity.swizzle.hlsl"
+		}
+	}
+}

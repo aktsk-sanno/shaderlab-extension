@@ -29,8 +29,13 @@
         "injectTo": ["source.shaderlab.extension"]
       },
       {
-        "path": "./syntaxes/shaderlab-extension-injection-r.tmLanguage.json",
-        "scopeName": "source.shaderlab.injection-r",
+        "path": "./syntaxes/hlsl-extension-injection-l.tmLanguage.json",
+        "scopeName": "source.shaderlab.hlsl.injection-l",
+        "injectTo": ["source.shaderlab.extension"]
+      },
+      {
+        "path": "./syntaxes/hlsl-extension-injection-r.tmLanguage.json",
+        "scopeName": "source.shaderlab.hlsl.injection-r",
         "injectTo": ["source.shaderlab.extension"]
       }
     ]
